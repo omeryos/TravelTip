@@ -1,13 +1,13 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
 }
 
 
 // Var that is used throughout this Module (not global)
 var gMap
-
+const API_KEY = 'AIzaSyA56bD6CA8dAO2OC1Auqwl2Fudf5sDG00Y'
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
@@ -47,7 +47,7 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyA56bD6CA8dAO2OC1Auqwl2Fudf5sDG00Y' //TODO: Enter your API Key
+     //TODO: Enter your API Key
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true

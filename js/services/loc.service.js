@@ -3,10 +3,12 @@ import {storageService}  from './async-storage.service.js'
 
 export const locService = {
     getLocs,
-    addLoc
+    addLoc,
+    // getLocsByStr
 }
 
 const LOCDB_KEY = 'locationsDB'
+const API_KEY = 'AIzaSyA56bD6CA8dAO2OC1Auqwl2Fudf5sDG00Y'
 
 const locs = [
     { name: 'Greatplace', lat: 32.047104, lng: 34.832384 }, 

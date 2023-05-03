@@ -1,12 +1,18 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
-import {storageService} from './services/async-storage.service.js'
+import { storageService } from './services/async-storage.service.js'
+
+export const controller = {
+    renderLocs,
+}
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onAddLoc = onAddLoc
+
 
 function onInit() {
     mapService.initMap()
@@ -26,7 +32,7 @@ function getPosition() {
 
 function onAddMarker() {
     console.log('Adding a marker')
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
+    mapService.addMarker({ lat: 31.0749831, lng: 42.9120554 })
 }
 
 function onGetLocs() {
@@ -41,6 +47,9 @@ function onGetUserPos() {
     getPosition()
         .then(pos => {
             console.log('User position is:', pos.coords)
+            onPanTo(pos.coords.latitude, pos.coords.longitude)
+
+
             document.querySelector('.user-pos').innerText =
                 `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
         })
@@ -50,17 +59,32 @@ function onGetUserPos() {
 }
 function onPanTo() {
     console.log('Panning the Map')
-    mapService.panTo(35.6895, 139.6917)
+    mapService.panTo(35.6895, 42.6917)
 }
 
-function onAddLoc(){
+function onAddLoc(ev) {
     const name = prompt('Place name?', 'Place 1')
     if (!name) return
     const lat = ev.latLng.lat()
     const lng = ev.latLng.lng()
-    mapService.panTo(lat,lng)
-    
+    mapService.panTo(lat, lng)
+
     locService.addLoc(name, lat, lng)
+    
 }
 
+function renderLocs(locs) {
+    let strHtmls = locs.map(loc => {
+        return `<article class="loc-preview" >
+        <h3>${loc.name}</h3>
+        <span>Saved at: ${new Date(loc.createdAt).toLocaleTimeString()}</span>
+        <button onclick="onPanTo(${loc.lat}, ${loc.lng})">GO</button>
+        <button onclick="onRemoveLoc('${loc.id}')">Delete</button>
+        </article>`
+    })
+    document.querySelector('.locs-table').innerHTML = strHtmls.join("")
+}
 
+function onRemoveLoc(locId) {
+    locService.removeLoc(locId).then(res => renderLocs(res))
+}
