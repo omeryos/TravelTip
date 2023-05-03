@@ -12,6 +12,8 @@ window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onAddLoc = onAddLoc
+window.onRemoveLoc = onRemoveLoc
+window.onCopyLocs =  onCopyLocs
 
 
 function onInit() {
@@ -87,4 +89,9 @@ function renderLocs(locs) {
 
 function onRemoveLoc(locId) {
     locService.removeLoc(locId).then(res => renderLocs(res))
+}
+
+
+function onCopyLocs() {
+    console.log('copy location');
 }
