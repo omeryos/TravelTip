@@ -1,5 +1,6 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import {storageService} from './services/async-storage.service.js'
 
 window.onload = onInit
 window.onAddMarker = onAddMarker
@@ -51,3 +52,15 @@ function onPanTo() {
     console.log('Panning the Map')
     mapService.panTo(35.6895, 139.6917)
 }
+
+function onAddLoc(){
+    const name = prompt('Place name?', 'Place 1')
+    if (!name) return
+    const lat = ev.latLng.lat()
+    const lng = ev.latLng.lng()
+    mapService.panTo(lat,lng)
+    
+    locService.addLoc(name, lat, lng)
+}
+
+
