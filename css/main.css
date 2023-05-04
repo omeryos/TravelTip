@@ -1,0 +1,33 @@
+body {
+    background-color: bisque;
+}
+.main-layout {
+	display: grid;
+	grid-template-areas:
+		'header header'
+		'copy-loc copy-loc'
+		'weather map'
+		'locs map'
+		'user-loc user-loc';
+
+	gap: 2em;
+}
+
+header{
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.map-container {
+	grid-area: map;
+}
+
+.locs-table {
+	grid-area: locs;
+	background-color: rgb(215, 250, 221);
+	width: 300px;
+	height: 300px;
+	overflow-y: auto;
+}

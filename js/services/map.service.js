@@ -1,13 +1,13 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
 }
 
 
 // Var that is used throughout this Module (not global)
 var gMap
-
+const API_KEY = ''
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
